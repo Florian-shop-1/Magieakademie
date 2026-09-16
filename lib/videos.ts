@@ -33,13 +33,14 @@ function baue(z: Record<string, unknown>): Video {
 }
 
 /*
-  Ein Video braucht einen Code, wenn es einen gemeinsamen Trick-Code hat oder
-  wenn einzelne Pass-Codes dafür angelegt sind.
+  Ein Video braucht einen Code, wenn es ein Trick aus dem Florian Zimmer
+  Theater ist (pass_trick), einen gemeinsamen Trick-Code hat oder einzelne
+  Pass-Codes dafür angelegt sind.
 */
 export async function alleVideos(mitgliedId: string): Promise<Video[]> {
   const zeilen = (await db()`
     select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.dauer,
-           (v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
+           (v.pass_trick or v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
            exists (select 1 from freischaltung f where f.video_id = v.id and f.mitglied_id = ${mitgliedId}) as frei
       from video v where v.sichtbar
      order by v.reihenfolge, v.id
@@ -50,7 +51,7 @@ export async function alleVideos(mitgliedId: string): Promise<Video[]> {
 export async function videoFuerMitglied(slug: string, mitgliedId: string): Promise<Video | null> {
   const [z] = (await db()`
     select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.dauer,
-           (v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
+           (v.pass_trick or v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
            exists (select 1 from freischaltung f where f.video_id = v.id and f.mitglied_id = ${mitgliedId}) as frei
       from video v where v.slug = ${slug} and v.sichtbar
   `) as Array<Record<string, unknown>>;

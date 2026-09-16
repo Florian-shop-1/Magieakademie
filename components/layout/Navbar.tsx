@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { ShoppingCart, Menu, X, LogIn, UserPlus } from "lucide-react";
-import { useCart, useAuth } from "@/lib/store";
+import { Menu, X, LogIn, UserPlus } from "lucide-react";
+import { useAuth } from "@/lib/store";
 import { Button } from "@/components/ui/Button";
 
 const publicNav = [
   { href: "/", label: "Start" },
-  { href: "/shop", label: "Magic Shop" },
   { href: "/community", label: "Community" },
   { href: "/treffen", label: "Treffen im Theater" },
 ];
@@ -17,12 +16,10 @@ const privateNav = [
   { href: "/erster-trick", label: "Mein erster Trick" },
   { href: "/mitglieder", label: "Mitglieder" },
   { href: "/treffen", label: "Treffen" },
-  { href: "/shop", label: "Shop" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const { itemCount } = useCart();
   const { user } = useAuth();
   const nav = user ? privateNav : publicNav;
 
@@ -51,14 +48,6 @@ export function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <Link href="/warenkorb" className="relative p-2 text-dark-300 hover:text-gold-400 transition-colors">
-              <ShoppingCart className="w-5 h-5" />
-              {itemCount() > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gold-500 text-dark-950 text-xs font-bold rounded-full flex items-center justify-center">
-                  {itemCount()}
-                </span>
-              )}
-            </Link>
 
             {user ? (
               <Link href="/profil">

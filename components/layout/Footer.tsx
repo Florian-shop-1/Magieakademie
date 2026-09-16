@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-dark-950/80 mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2">
@@ -35,26 +35,6 @@ export function Footer() {
                 { href: "/mitglieder", label: "Mitglieder finden" },
                 { href: "/treffen", label: "Treffen im Theater" },
                 { href: "/registrieren", label: "Kostenlos mitmachen" },
-              ].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-dark-400 hover:text-gold-400 transition-colors">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Shop */}
-          <div className="space-y-3">
-            <h4 className="font-display text-sm font-semibold text-gold-400 uppercase tracking-widest">Magic Shop</h4>
-            <ul className="space-y-2">
-              {[
-                { href: "/shop?kategorie=erster-trick", label: "Mein erster Trick" },
-                { href: "/shop?kategorie=karten", label: "Kartentricks" },
-                { href: "/shop?kategorie=muenzen", label: "Münztricks" },
-                { href: "/shop?kategorie=kinder", label: "Tricks für Kinder" },
-                { href: "/shop?kategorie=geschenke", label: "Geschenkideen" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-sm text-dark-400 hover:text-gold-400 transition-colors">

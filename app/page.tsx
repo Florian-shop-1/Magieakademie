@@ -17,13 +17,6 @@ const vorteile = [
   { icon: "⭐", text: "Tipps von Florian Zimmer persönlich" },
 ];
 
-const shopItems = [
-  { name: "Das magische Seil", preis: "14,90 €", schwierigkeit: "Anfänger", emoji: "🪄" },
-  { name: "Traumkarten Deck", preis: "24,90 €", schwierigkeit: "Anfänger", emoji: "🃏" },
-  { name: "Münzzauber Starter", preis: "19,90 €", schwierigkeit: "Anfänger", emoji: "🪙" },
-  { name: "Mentalist Basics", preis: "29,90 €", schwierigkeit: "Fortgeschritten", emoji: "🧠" },
-];
-
 // Static star positions (no random, so SSR & client match)
 const STARS = [
   {x:8,y:12,s:1.5},{x:15,y:5,s:1},{x:23,y:78,s:2},{x:31,y:45,s:1},{x:38,y:20,s:1.5},
@@ -127,11 +120,6 @@ export default function HomePage() {
             <Link href="/registrieren">
               <button className="btn-gold" style={{ borderRadius: "999px", padding: "18px 40px", fontSize: "1.05rem", display: "flex", alignItems: "center", gap: "10px", boxShadow: "0 0 50px rgba(212,175,55,0.35), 0 20px 50px rgba(0,0,0,0.5)" }}>
                 <Sparkles style={{ width: 20, height: 20 }} /> Kostenlos Mitglied werden
-              </button>
-            </Link>
-            <Link href="/shop">
-              <button className="btn-outline-gold" style={{ borderRadius: "999px", padding: "18px 40px", fontSize: "1.05rem", display: "flex", alignItems: "center", gap: "10px" }}>
-                Magic Shop entdecken <ArrowRight style={{ width: 20, height: 20 }} />
               </button>
             </Link>
           </div>
@@ -252,49 +240,6 @@ export default function HomePage() {
                 </button>
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════
-          SHOP
-      ════════════════════════════════════════════════ */}
-      <section style={{ padding: "0 24px 120px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "48px", flexWrap: "wrap", gap: "16px" }}>
-            <div>
-              <p style={{ fontSize: "11px", color: "#D4AF37", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Kein Login nötig</p>
-              <h2 className="font-display" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, color: "#f6f5fa" }}>Magic Shop</h2>
-            </div>
-            <Link href="/shop" style={{ color: "#D4AF37", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: "6px" }}>
-              Alle Tricks <ArrowRight style={{ width: 18, height: 18 }} />
-            </Link>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "20px" }}>
-            {shopItems.map((p, i) => (
-              <Link href="/shop" key={i} style={{ textDecoration: "none" }}>
-                <div className="card-hover" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", overflow: "hidden" }}>
-                  <div style={{ height: "160px", background: "linear-gradient(135deg, #19162a, #0e0c18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "56px", position: "relative", overflow: "hidden" }}>
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, rgba(212,175,55,0.06) 0%, transparent 70%)" }} />
-                    <span style={{ position: "relative", zIndex: 1 }}>{p.emoji}</span>
-                  </div>
-                  <div style={{ padding: "20px" }}>
-                    <h3 className="font-display" style={{ fontSize: "0.95rem", fontWeight: 700, color: "#f6f5fa", marginBottom: "8px" }}>{p.name}</h3>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span style={{ fontSize: "0.75rem", color: "#464158" }}>{p.schwierigkeit}</span>
-                      <span style={{ fontWeight: 800, fontSize: "1.1rem", color: "#D4AF37" }}>{p.preis}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: "40px" }}>
-            <Link href="/shop">
-              <button className="btn-outline-gold" style={{ borderRadius: "999px", padding: "14px 40px", fontWeight: 600 }}>
-                Alle Tricks entdecken
-              </button>
-            </Link>
           </div>
         </div>
       </section>

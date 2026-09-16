@@ -13,7 +13,7 @@ export function Footer() {
               <img src="/logo-magieakademie.png" alt="Magieakademie" className="h-10 w-auto logo-glow" />
             </Link>
             <p className="text-dark-400 text-sm leading-relaxed max-w-sm">
-              Die größte deutschsprachige Zaubercommunity. Ein Ort für alle, die Magie lieben — vom ersten Trick bis zur großen Bühne.
+              Die deutschsprachige Zaubercommunity. Ein Ort für alle, die Magie lieben, vom ersten Trick bis zur großen Bühne.
             </p>
             <div className="flex items-center gap-4 pt-2">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-dark-400 hover:text-gold-400 transition-colors text-sm font-medium">

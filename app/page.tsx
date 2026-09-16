@@ -96,18 +96,8 @@ export default function HomePage() {
           {/* Headline */}
           <div style={{ animation: "slideUp 0.8s ease-out 0.2s both", marginBottom: "24px" }}>
             <h1 className="font-display" style={{ fontSize: "clamp(1.9rem, 4.6vw, 4rem)", fontWeight: 900, lineHeight: 1.05, margin: 0 }}>
-              <span style={{
-                display: "block",
-                background: "linear-gradient(135deg, #8A6A1F, #D4AF37, #F3E3A6, #D4AF37, #8A6A1F)",
-                backgroundSize: "200% auto",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                animation: "shimmer 3s linear infinite",
-                filter: "drop-shadow(0 0 30px rgba(212,175,55,0.4))",
-              }}>Die größte</span>
               <span style={{ display: "block", color: "#f6f5fa", textShadow: "0 0 60px rgba(212,175,55,0.15)" }}>
-                deutschsprachige
+                Die deutschsprachige
               </span>
               <span style={{
                 display: "block",

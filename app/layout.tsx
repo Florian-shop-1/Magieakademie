@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Magieakademie — Die größte deutschsprachige Zaubercommunity",
+  title: "Magieakademie · Die deutschsprachige Zaubercommunity",
   description: "Lerne Zaubern, zeig deinen ersten Trick, tausche dich aus und werde Teil einer Community, die Magie liebt.",
   keywords: "Zauberei, Zaubertricks lernen, Zaubercommunity, Magic, Kartentricks, Deutschland",
 };

@@ -87,7 +87,7 @@ export default function CommunityPage() {
       {/* Feed Preview — blurred */}
       <div className="relative">
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-3xl"
-          style={{ background: "linear-gradient(to bottom, rgba(13,12,10,0) 0%, rgba(13,12,10,0.7) 30%, rgba(13,12,10,0.97) 70%)" }}>
+          style={{ background: "linear-gradient(to bottom, rgba(12,10,20,0) 0%, rgba(12,10,20,0.7) 30%, rgba(12,10,20,0.97) 70%)" }}>
           <div className="glass-gold rounded-3xl p-8 md:p-12 text-center max-w-lg mx-4">
             <Lock className="w-12 h-12 text-gold-400 mx-auto mb-4 animate-pulse-gold" />
             <h2 className="font-display text-2xl font-bold text-dark-50 mb-3">Melde dich an, um alles zu sehen</h2>

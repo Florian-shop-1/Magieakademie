@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,8 +9,8 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-gold-400" />
-              <span className="font-display text-xl font-bold text-gold-gradient">Magieakademie</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-magieakademie.png" alt="Magieakademie" className="h-10 w-auto logo-glow" />
             </Link>
             <p className="text-dark-400 text-sm leading-relaxed max-w-sm">
               Die größte deutschsprachige Zaubercommunity. Ein Ort für alle, die Magie lieben — vom ersten Trick bis zur großen Bühne.

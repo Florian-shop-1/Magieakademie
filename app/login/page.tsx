@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(180,83,9,0.1) 0%, transparent 70%)" }} />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 70%)" }} />
 
       <div className="relative w-full max-w-md">
         {/* Logo */}

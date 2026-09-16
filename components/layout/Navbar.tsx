@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { ShoppingCart, Menu, X, Sparkles, LogIn, UserPlus } from "lucide-react";
+import { ShoppingCart, Menu, X, LogIn, UserPlus } from "lucide-react";
 import { useCart, useAuth } from "@/lib/store";
 import { Button } from "@/components/ui/Button";
 
@@ -32,12 +32,8 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <Sparkles className="w-6 h-6 text-gold-400 group-hover:text-gold-300 transition-colors" />
-            </div>
-            <span className="font-display text-lg font-bold text-gold-gradient">
-              Magieakademie
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-magieakademie.png" alt="Magieakademie" className="h-9 w-auto logo-glow transition-transform group-hover:scale-[1.02]" />
           </Link>
 
           {/* Desktop Nav */}

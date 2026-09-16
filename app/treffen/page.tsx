@@ -152,7 +152,7 @@ export default function TreffenPage() {
           <span className="text-sm text-gold-300">Florian Zimmer Theater · Neu-Ulm</span>
         </div>
         <h1 className="font-display text-5xl md:text-6xl font-bold text-dark-50 mb-6">
-          Treffen im <span className="text-gold-gradient">Theater</span>
+          Treffen im <span className="text-gold-gradient">Florian Zimmer Theater</span>
         </h1>
         <p className="text-dark-300 text-xl max-w-3xl mx-auto leading-relaxed">
           Bring deinen Trick, deine Idee oder einfach deine Begeisterung mit. Gemeinsam machen wir daraus Magie.

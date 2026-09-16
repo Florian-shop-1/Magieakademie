@@ -17,7 +17,7 @@ export function CodeFormular({ gross = false }: { gross?: boolean }) {
       <div className={`flex items-center gap-3 mb-2 ${gross ? "justify-center" : ""}`}>
         <KeyRound className="w-5 h-5 text-gold-400" />
         <h2 className="font-display text-lg font-bold text-dark-50">
-          {gross ? "Dieser Trick wartet auf deinen Code" : "Trick aus dem Theater freischalten"}
+          {gross ? "Dieser Trick wartet auf deinen Code" : "Trick aus dem Florian Zimmer Theater freischalten"}
         </h2>
       </div>
       <p className="text-dark-300 text-sm mb-4">

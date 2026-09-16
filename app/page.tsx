@@ -257,7 +257,7 @@ export default function HomePage() {
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#D4AF37", fontSize: "0.85rem", fontWeight: 600, marginBottom: "12px" }}>
                   <MapPin style={{ width: 14, height: 14 }} /> Neu-Ulm · Florian Zimmer Theater
                 </div>
-                <h2 className="font-display" style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#f6f5fa", marginBottom: "12px" }}>Treffen im Theater</h2>
+                <h2 className="font-display" style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#f6f5fa", marginBottom: "12px" }}>Treffen im Florian Zimmer Theater</h2>
                 <p style={{ color: "#655f78", lineHeight: 1.7, maxWidth: "500px", marginBottom: "28px" }}>
                   Bring deinen Trick, deine Idee oder einfach deine Begeisterung mit. Gemeinsam machen wir daraus Magie. Kostenlos.
                 </p>

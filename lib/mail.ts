@@ -3,7 +3,7 @@ import "server-only";
 /**
  * Mails über Brevo, wie im Ticketshop (src/lib/brevo.ts dort).
  * Der Schlüssel steht in BREVO_API_KEY und verlässt nie den Server.
- * Absender ist die bei Brevo bestätigte Adresse des Theaters.
+ * Absender ist die bei Brevo bestätigte Adresse des Florian Zimmer Theaters.
  */
 export function mailBereit(): boolean {
   return !!process.env.BREVO_API_KEY;

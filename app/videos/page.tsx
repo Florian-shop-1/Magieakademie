@@ -49,7 +49,7 @@ export default async function VideosPage() {
         <h1 className="font-display text-3xl md:text-4xl font-bold text-dark-50 mb-3 text-balance">
           Hallo {mitglied.vorname || mitglied.anzeigename || "und willkommen"}!
         </h1>
-        <p className="text-dark-400 max-w-2xl">Hier findest du alle Tricks der Magieakademie und die Tricks, die du im Theater bekommen hast.</p>
+        <p className="text-dark-400 max-w-2xl">Hier findest du alle Tricks der Magieakademie und die Tricks, die du im Florian Zimmer Theater bekommen hast.</p>
       </header>
 
       <CodeFormular />
@@ -57,7 +57,7 @@ export default async function VideosPage() {
       {meineTricks.length > 0 && (
         <section>
           <h2 className="font-display text-xl text-dark-50 mb-5 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-gold-400" /> Meine Tricks aus dem Theater
+            <Sparkles className="w-5 h-5 text-gold-400" /> Meine Tricks aus dem Florian Zimmer Theater
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{meineTricks.map((v) => <Karte key={v.id} v={v} />)}</div>
         </section>
@@ -74,7 +74,7 @@ export default async function VideosPage() {
 
       {gesperrt.length > 0 && (
         <section>
-          <h2 className="font-display text-xl text-dark-50 mb-2">Tricks aus dem Theater</h2>
+          <h2 className="font-display text-xl text-dark-50 mb-2">Tricks aus dem Florian Zimmer Theater</h2>
           <p className="text-dark-400 text-sm mb-5">Diese Tricks gibt es im Florian Zimmer Theater. Mit dem Code aus dem Pass schaltest du sie frei.</p>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{gesperrt.map((v) => <Karte key={v.id} v={v} />)}</div>
         </section>

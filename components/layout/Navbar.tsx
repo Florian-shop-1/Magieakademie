@@ -1,26 +1,27 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, LogIn, UserPlus } from "lucide-react";
-import { useAuth } from "@/lib/store";
+import { Menu, X, LogIn, LogOut, UserPlus } from "lucide-react";
+import { abmelden } from "@/lib/auth/aktionen";
 import { Button } from "@/components/ui/Button";
 
+// Community, Mitglieder und Treffen kommen später. Bis dahin nur, was echt funktioniert.
 const publicNav = [
   { href: "/", label: "Start" },
-  { href: "/community", label: "Community" },
-  { href: "/treffen", label: "Treffen im Theater" },
+  { href: "/videos", label: "Videos" },
 ];
 
 const privateNav = [
-  { href: "/community", label: "Community" },
-  { href: "/erster-trick", label: "Mein erster Trick" },
-  { href: "/mitglieder", label: "Mitglieder" },
-  { href: "/treffen", label: "Treffen" },
+  { href: "/", label: "Start" },
+  { href: "/videos", label: "Meine Videos" },
 ];
 
-export function Navbar() {
+export interface NavMitglied {
+  name: string;
+}
+
+export function Navbar({ user }: { user: NavMitglied | null }) {
   const [open, setOpen] = useState(false);
-  const { user } = useAuth();
   const nav = user ? privateNav : publicNav;
 
   return (
@@ -50,11 +51,19 @@ export function Navbar() {
           <div className="flex items-center gap-3">
 
             {user ? (
-              <Link href="/profil">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold-600 to-gold-400 flex items-center justify-center text-dark-950 font-bold text-sm">
-                  {user.vorname[0]}
-                </div>
-              </Link>
+              <div className="flex items-center gap-2">
+                <span
+                  title={user.name}
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-gold-600 to-gold-400 flex items-center justify-center text-dark-950 font-bold text-sm"
+                >
+                  {(user.name[0] || "M").toUpperCase()}
+                </span>
+                <form action={abmelden}>
+                  <Button type="submit" variant="ghost" size="sm" aria-label="Abmelden">
+                    <LogOut className="w-4 h-4" /> <span className="hidden sm:inline">Abmelden</span>
+                  </Button>
+                </form>
+              </div>
             ) : (
               <div className="hidden md:flex items-center gap-2">
                 <Link href="/login">

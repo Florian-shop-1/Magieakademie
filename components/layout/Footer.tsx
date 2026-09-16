@@ -16,24 +16,20 @@ export function Footer() {
               Die deutschsprachige Zaubercommunity. Ein Ort für alle, die Magie lieben, vom ersten Trick bis zur großen Bühne.
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-dark-400 hover:text-gold-400 transition-colors text-sm font-medium">
-                Instagram
-              </a>
-              <a href="mailto:info@magieakademie.de" className="text-dark-400 hover:text-gold-400 transition-colors">
-                <Mail className="w-5 h-5" />
+              <a href="mailto:info@florianzimmer.com" className="inline-flex items-center gap-2 text-sm text-dark-400 hover:text-gold-400 transition-colors">
+                <Mail className="w-5 h-5" /> info@florianzimmer.com
               </a>
             </div>
           </div>
 
           {/* Community */}
           <div className="space-y-3">
-            <h4 className="font-display text-sm font-semibold text-gold-400 uppercase tracking-widest">Community</h4>
+            <h4 className="font-display text-sm font-semibold text-gold-400 uppercase tracking-widest">Mitglieder</h4>
             <ul className="space-y-2">
               {[
-                { href: "/community", label: "Community-Feed" },
-                { href: "/erster-trick", label: "Mein erster Trick" },
-                { href: "/mitglieder", label: "Mitglieder finden" },
-                { href: "/treffen", label: "Treffen im Theater" },
+                { href: "/videos", label: "Videos" },
+                { href: "/login", label: "Einloggen" },
+                { href: "/passwort-vergessen", label: "Passwort vergessen" },
                 { href: "/registrieren", label: "Kostenlos mitmachen" },
               ].map((l) => (
                 <li key={l.href}>
@@ -49,11 +45,10 @@ export function Footer() {
         <div className="gold-divider my-10" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-dark-500">
-          <p>© {new Date().getFullYear()} Magieakademie.de — Ein Projekt der Florian Zimmer Theater GmbH</p>
+          <p>© {new Date().getFullYear()} Magieakademie.de · Ein Projekt der Florian Zimmer Theater GmbH</p>
           <div className="flex items-center gap-6">
             <Link href="/impressum" className="hover:text-gold-400 transition-colors">Impressum</Link>
             <Link href="/datenschutz" className="hover:text-gold-400 transition-colors">Datenschutz</Link>
-            <Link href="/agb" className="hover:text-gold-400 transition-colors">AGB</Link>
           </div>
         </div>
       </div>

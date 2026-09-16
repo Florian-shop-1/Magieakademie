@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Sparkles, Star, Users, Video, ArrowRight, ChevronRight, Zap, Heart, MapPin } from "lucide-react";
 
 const features = [
-  { icon: Video, titel: "Lerne deinen ersten Trick", text: "Starte mit einfachen Zaubertricks, die du sofort zeigen kannst. Schritt für Schritt, ohne Vorwissen.", link: "/erster-trick", cta: "Jetzt lernen" },
-  { icon: Star, titel: "Zeig dich", text: "Lade dein erstes Zaubervideo hoch, bekomme Feedback und wachse gemeinsam mit der Community.", link: "/community", cta: "Community entdecken" },
-  { icon: Users, titel: "Finde Zauberfreunde", text: "Tausche dich mit Menschen aus, die deine Leidenschaft teilen — online und bei echten Treffen.", link: "/mitglieder", cta: "Mitglieder finden" },
+  { icon: Video, titel: "Lerne deinen ersten Trick", text: "Starte mit einfachen Zaubertricks, die du sofort zeigen kannst. Schritt für Schritt, ohne Vorwissen.", link: "/videos", cta: "Zu den Videos" },
+  { icon: Star, titel: "Zeig dich", text: "Lade dein erstes Zaubervideo hoch, bekomme Feedback und wachse gemeinsam mit der Community.", link: "/registrieren", cta: "Mitglied werden" },
+  { icon: Users, titel: "Finde Zauberfreunde", text: "Tausche dich mit Menschen aus, die deine Leidenschaft teilen — online und bei echten Treffen.", link: "/registrieren", cta: "Mitglied werden" },
 ];
 
 const vorteile = [
@@ -261,9 +261,9 @@ export default function HomePage() {
                 <p style={{ color: "#655f78", lineHeight: 1.7, maxWidth: "500px", marginBottom: "28px" }}>
                   Bring deinen Trick, deine Idee oder einfach deine Begeisterung mit. Gemeinsam machen wir daraus Magie. Kostenlos.
                 </p>
-                <Link href="/treffen">
+                <Link href="/registrieren">
                   <button className="btn-gold" style={{ borderRadius: "999px", padding: "14px 32px", display: "inline-flex", alignItems: "center", gap: "8px", fontWeight: 700 }}>
-                    Nächste Treffen ansehen <ArrowRight style={{ width: 18, height: 18 }} />
+                    Mitglied werden und dabei sein <ArrowRight style={{ width: 18, height: 18 }} />
                   </button>
                 </Link>
               </div>

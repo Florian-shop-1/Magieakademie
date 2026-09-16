@@ -96,15 +96,16 @@ export async function codeEinloesen(
     return { video: { slug: pass.slug, titel: pass.titel } };
   }
 
-  // 2. Gemeinsamer Code je Trick, wie auf der alten Seite. Groß- und
-  //    Kleinschreibung zählt hier, weil die alten Passwörter so gesetzt sind.
+  // 2. Gemeinsamer Code je Trick, der auf den alten Pässen steht (z. B.
+  //    "WanD441"). Groß- und Kleinschreibung und Leerzeichen zählen nicht,
+  //    gespeichert ist die Prüfsumme der normalisierten Form (scripts/codes.mjs).
   const tricks = (await db()`
     select id, slug, titel, code from video where code is not null and sichtbar
   `) as Array<{ id: number; slug: string; titel: string; code: string }>;
   for (const t of tricks) {
     const passt = t.code.startsWith("$P$")
       ? wpPasswortStimmt(code.trim(), t.code)
-      : await passwortStimmt(code.trim(), t.code);
+      : await passwortStimmt(sauber, t.code);
     if (passt) {
       await freischalten(mitgliedId, t.id, "trick");
       return { video: { slug: t.slug, titel: t.titel } };

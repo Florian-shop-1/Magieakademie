@@ -22,7 +22,8 @@ async function videoId() {
 
 if (befehl === "trick") {
   const zusatz = randomBytes(16).toString("hex");
-  const s = await promisify(scrypt)(wert, zusatz, 64);
+  // Normalisiert wie lib/videos.ts: Groß-/Kleinschreibung und Leerzeichen egal.
+  const s = await promisify(scrypt)(normal(wert), zusatz, 64);
   await sql`update video set code = ${`${zusatz}:${s.toString("hex")}`} where id = ${await videoId()}`;
   console.log("Trick-Code gesetzt für", slug);
 } else if (befehl === "pass") {

@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { mitgliedPflicht } from "@/lib/auth/sitzung";
 import { videoFuerMitglied } from "@/lib/videos";
 import { CodeFormular } from "../CodeFormular";
+import { Anleitung } from "./Anleitung";
 
 export const dynamic = "force-dynamic";
 
@@ -21,14 +22,17 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
       <h1 className="font-display text-3xl font-bold text-dark-50 mb-6 text-balance">{video.titel}</h1>
 
       {video.frei ? (
-        <video
+        <div className="space-y-10">
+        {video.datei && <video
           controls
           playsInline
           preload="metadata"
           controlsList="nodownload"
           className="w-full rounded-2xl border border-white/10 bg-black aspect-video"
           src={`/api/video/${video.slug}`}
-        />
+        />}
+        {video.anleitung && <Anleitung text={video.anleitung} />}
+        </div>
       ) : (
         <CodeFormular gross />
       )}

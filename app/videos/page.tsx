@@ -26,7 +26,7 @@ function Karte({ v }: { v: Video }) {
       <h3 className="font-display text-lg font-bold text-dark-50">{v.titel}</h3>
       {v.beschreibung && <p className="text-sm text-dark-400 line-clamp-3">{v.beschreibung}</p>}
       <span className={`mt-auto text-sm font-semibold ${gesperrt ? "text-dark-400" : "text-gold-400"}`}>
-        {gesperrt ? "Mit Code aus dem Pass" : "Ansehen"}
+        {gesperrt ? "Mit Code aus dem Pass" : v.datei ? "Ansehen" : "Anleitung lesen"}
       </span>
     </Link>
   );

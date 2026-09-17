@@ -9,7 +9,9 @@ export interface Video {
   titel: string;
   beschreibung: string;
   kategorie: string;
-  datei: string;
+  /** Leer bei Tricks, die nur eine schriftliche Anleitung haben. */
+  datei: string | null;
+  anleitung: string | null;
   dauer: string | null;
   /** Braucht einen Code aus dem Pass. */
   mitCode: boolean;
@@ -25,7 +27,8 @@ function baue(z: Record<string, unknown>): Video {
     titel: String(z.titel),
     beschreibung: String(z.beschreibung ?? ""),
     kategorie: String(z.kategorie ?? ""),
-    datei: String(z.datei),
+    datei: (z.datei as string) ?? null,
+    anleitung: (z.anleitung as string) ?? null,
     dauer: (z.dauer as string) ?? null,
     mitCode,
     frei: !mitCode || z.frei === true,
@@ -39,7 +42,7 @@ function baue(z: Record<string, unknown>): Video {
 */
 export async function alleVideos(mitgliedId: string): Promise<Video[]> {
   const zeilen = (await db()`
-    select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.dauer,
+    select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.anleitung, v.dauer,
            (v.pass_trick or v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
            exists (select 1 from freischaltung f where f.video_id = v.id and f.mitglied_id = ${mitgliedId}) as frei
       from video v where v.sichtbar
@@ -50,7 +53,7 @@ export async function alleVideos(mitgliedId: string): Promise<Video[]> {
 
 export async function videoFuerMitglied(slug: string, mitgliedId: string): Promise<Video | null> {
   const [z] = (await db()`
-    select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.dauer,
+    select v.id, v.slug, v.titel, v.beschreibung, v.kategorie, v.datei, v.anleitung, v.dauer,
            (v.pass_trick or v.code is not null or exists (select 1 from pass_code p where p.video_id = v.id)) as mit_code,
            exists (select 1 from freischaltung f where f.video_id = v.id and f.mitglied_id = ${mitgliedId}) as frei
       from video v where v.slug = ${slug} and v.sichtbar

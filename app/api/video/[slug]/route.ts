@@ -17,7 +17,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
 
   const { slug } = await params;
   const video = await videoFuerMitglied(slug, mitglied.id);
-  if (!video) return new Response("Nicht gefunden.", { status: 404 });
+  if (!video?.datei) return new Response("Nicht gefunden.", { status: 404 });
   if (!video.frei) {
     return new Response("Dieser Trick braucht den Code aus der Packung.", { status: 403 });
   }

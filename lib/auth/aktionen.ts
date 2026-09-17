@@ -4,11 +4,14 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { passwortPruefen, passwortStimmt, passwortVerschluesseln, wpPasswortStimmt } from "@/lib/auth/passwort";
 import { sicheresZiel, sitzungBeenden, sitzungStarten } from "@/lib/auth/sitzung";
-import { inNewsletterEintragen } from "@/lib/mail";
+import { mailBereit } from "@/lib/mail";
+import { bestaetigungSchicken } from "@/lib/auth/bestaetigung";
 
 export interface Formularstand {
   fehler?: string;
   ok?: string;
+  /** Konto noch nicht bestätigt: die Seite bietet an, die Mail neu zu schicken. */
+  unbestaetigt?: string;
 }
 
 const MAX_FEHLVERSUCHE = 8;
@@ -39,10 +42,10 @@ export async function anmelden(_: Formularstand, formular: FormData): Promise<Fo
   }
 
   const [m] = (await db()`
-    select id, passwort, wp_passwort from mitglied
+    select id, email, passwort, wp_passwort, email_bestaetigt_am from mitglied
      where aktiv and (lower(email) = ${kennung} or lower(benutzername) = ${kennung})
      limit 1
-  `) as Array<{ id: string; passwort: string | null; wp_passwort: string | null }>;
+  `) as Array<{ id: string; email: string; passwort: string | null; wp_passwort: string | null; email_bestaetigt_am: Date | null }>;
 
   let richtig = false;
   if (m?.passwort) richtig = await passwortStimmt(passwort, m.passwort);
@@ -57,6 +60,13 @@ export async function anmelden(_: Formularstand, formular: FormData): Promise<Fo
   if (!m || !richtig) {
     await db()`insert into anmeldeversuch (kennung) values (${kennung})`;
     return { fehler: "E-Mail oder Passwort stimmt nicht." };
+  }
+
+  if (!m.email_bestaetigt_am) {
+    return {
+      fehler: "Bitte bestätige zuerst deine E-Mail-Adresse. Den Link haben wir dir nach der Anmeldung geschickt.",
+      unbestaetigt: m.email,
+    };
   }
 
   await db()`update mitglied set letzter_login = now() where id = ${m.id}`;
@@ -82,24 +92,59 @@ export async function registrieren(_: Formularstand, formular: FormData): Promis
   const pwFehler = passwortPruefen(passwort);
   if (pwFehler) return { fehler: pwFehler };
 
-  const [vorhanden] = (await db()`select id from mitglied where lower(email) = ${email}`) as Array<{ id: string }>;
-  if (vorhanden) {
+  if (!mailBereit()) {
+    return { fehler: "Die Anmeldung ist gleich wieder möglich. Schau bitte in ein paar Minuten noch einmal vorbei." };
+  }
+
+  const [vorhanden] = (await db()`
+    select id, email_bestaetigt_am from mitglied where lower(email) = ${email}
+  `) as Array<{ id: string; email_bestaetigt_am: Date | null }>;
+  if (vorhanden?.email_bestaetigt_am) {
     return { fehler: "Mit dieser E-Mail gibt es schon ein Konto. Melde dich einfach an oder setz dein Passwort zurück." };
   }
 
   const hash = await passwortVerschluesseln(passwort);
   const anzeigename = [vorname, nachname].filter(Boolean).join(" ");
-  const [neu] = (await db()`
-    insert into mitglied (email, anzeigename, vorname, nachname, passwort, newsletter)
-    values (${email}, ${anzeigename}, ${vorname}, ${nachname}, ${hash}, ${newsletter})
-    returning id
-  `) as Array<{ id: string }>;
-
-  if (newsletter) {
-    // Ein Brevo-Ausfall darf die Registrierung nicht verhindern.
-    await inNewsletterEintragen(email, vorname, nachname).catch((f) => console.error("[newsletter]", f));
+  let id = vorhanden?.id;
+  if (id) {
+    // Unbestätigte Anmeldung mit derselben Adresse: Angaben erneuern, neuen Link schicken.
+    await db()`
+      update mitglied set anzeigename = ${anzeigename}, vorname = ${vorname}, nachname = ${nachname},
+             passwort = ${hash}, newsletter = ${newsletter}
+       where id = ${id}
+    `;
+  } else {
+    const [neu] = (await db()`
+      insert into mitglied (email, anzeigename, vorname, nachname, passwort, newsletter)
+      values (${email}, ${anzeigename}, ${vorname}, ${nachname}, ${hash}, ${newsletter})
+      returning id
+    `) as Array<{ id: string }>;
+    id = neu.id;
   }
 
-  await sitzungStarten(neu.id);
-  redirect("/videos");
+  try {
+    await bestaetigungSchicken(id);
+  } catch (f) {
+    console.error("[bestaetigung]", f);
+    return { fehler: "Die Bestätigungsmail konnte gerade nicht verschickt werden. Versuch es bitte gleich noch einmal." };
+  }
+  return { ok: email };
+}
+
+/** Bestätigungsmail neu schicken, etwa aus dem Login heraus. Antwort immer gleich. */
+export async function bestaetigungNeu(_: Formularstand, formular: FormData): Promise<Formularstand> {
+  const email = String(formular.get("email") ?? "").trim().toLowerCase();
+  const ok = { ok: "Wenn es zu dieser Adresse eine offene Anmeldung gibt, ist eine neue Mail unterwegs." };
+  if (!email.includes("@") || !mailBereit()) return ok;
+  const kennung = `bestaetigung:${email}`;
+  const [z] = (await db()`
+    select count(*)::int as n from anmeldeversuch where kennung = ${kennung} and zeit > now() - interval '1 hour'
+  `) as Array<{ n: number }>;
+  if ((z?.n ?? 0) >= 3) return ok;
+  await db()`insert into anmeldeversuch (kennung) values (${kennung})`;
+  const [m] = (await db()`
+    select id from mitglied where lower(email) = ${email} and email_bestaetigt_am is null and aktiv
+  `) as Array<{ id: string }>;
+  if (m) await bestaetigungSchicken(m.id).catch((f) => console.error("[bestaetigung]", f));
+  return ok;
 }

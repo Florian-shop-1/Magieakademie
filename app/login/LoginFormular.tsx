@@ -3,7 +3,7 @@ import { useActionState, useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { anmelden, type Formularstand } from "@/lib/auth/aktionen";
+import { anmelden, bestaetigungNeu, type Formularstand } from "@/lib/auth/aktionen";
 
 const feld =
   "w-full bg-dark-900 border border-dark-700 rounded-xl pl-11 pr-4 py-3 text-dark-100 placeholder-dark-500 focus:border-gold-500 focus:ring-1 focus:ring-gold-500/30 outline-none transition-all";
@@ -11,6 +11,7 @@ const feld =
 export function LoginFormular({ weiter }: { weiter: string }) {
   const [showPw, setShowPw] = useState(false);
   const [stand, aktion, laeuft] = useActionState<Formularstand, FormData>(anmelden, {});
+  const [neu, neuAktion, neuLaeuft] = useActionState<Formularstand, FormData>(bestaetigungNeu, {});
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20 relative">
@@ -63,6 +64,26 @@ export function LoginFormular({ weiter }: { weiter: string }) {
               <p role="alert" className="text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
                 {stand.fehler}
               </p>
+            )}
+
+            {stand.unbestaetigt && (
+              <div className="text-sm text-dark-300">
+                {neu.ok ? (
+                  <p role="status">{neu.ok}</p>
+                ) : (
+                  <button
+                    type="submit"
+                    formAction={neuAktion}
+                    name="email"
+                    value={stand.unbestaetigt}
+                    formNoValidate
+                    disabled={neuLaeuft}
+                    className="text-gold-400 hover:text-gold-300 underline"
+                  >
+                    Bestätigungsmail neu schicken
+                  </button>
+                )}
+              </div>
             )}
 
             <div className="flex justify-end">

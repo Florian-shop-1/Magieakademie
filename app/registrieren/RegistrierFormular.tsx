@@ -28,10 +28,19 @@ export function RegistrierFormular() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-magieakademie.png" alt="Magieakademie" className="logo-glow mx-auto mb-6 w-72 max-w-full h-auto" />
           <h1 className="font-display text-3xl font-bold text-gold-gradient mb-2">Werde Teil der Magie</h1>
-          <p className="text-dark-400">Kostenlos. Danach siehst du sofort alle Mitglieder-Videos.</p>
+          <p className="text-dark-400">Kostenlos. Nach der Bestätigung per Mail siehst du alle Mitglieder-Videos.</p>
         </div>
 
         <div className="glass rounded-3xl p-8 md:p-10">
+          {stand.ok ? (
+            <div role="status" className="text-center space-y-4">
+              <h2 className="font-display text-2xl font-bold text-dark-50">Fast geschafft!</h2>
+              <p className="text-dark-300">
+                Wir haben dir eine Mail an <strong className="text-dark-100">{stand.ok}</strong> geschickt. Klick auf den Link darin, dann ist dein Konto aktiv.
+              </p>
+              <p className="text-sm text-dark-400">Keine Mail da? Schau auch im Spam-Ordner nach.</p>
+            </div>
+          ) : (
           <form action={aktion} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -86,6 +95,7 @@ export function RegistrierFormular() {
               <Link href="/datenschutz" className="text-gold-500 hover:underline">Datenschutzhinweisen</Link> zu.
             </p>
           </form>
+          )}
         </div>
 
         <p className="text-center mt-6 text-dark-500 text-sm">
